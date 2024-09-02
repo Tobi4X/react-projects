@@ -1,0 +1,13 @@
+
+body {
+    font-size: larger;
+}
+div{
+    background-color: aquamarine;
+}
+section {
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    margin: auto;
+    display: grid;
+}
