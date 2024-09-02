@@ -1,25 +1,37 @@
 import { useState } from "react"
+
 import {Cuadrado} from "./components/Cuadrado.jsx"
+import { Ganador } from "./components/Ganador.jsx"
+
 import {JUGADORES} from "./constants.js"
 import { checkGanador } from "./logic/tablero.js"
 import confetti from "canvas-confetti"
+import { guardarJuego, borrarJuego } from "./logic/storage/storage.js"
 
 import "./App.css"
-import { Ganador } from "./components/Ganador.jsx"
 
 
 export default function App (){
 
-    const [tablero, setTablero] = useState(Array(9).fill(JUGADORES.BLANK))
+    const [tablero, setTablero] = useState( () => {
+        const tableroLocal = window.localStorage.getItem("tablero")
+        return tableroLocal ? JSON.parse(tableroLocal) : Array(9).fill(JUGADORES.BLANK)
+    })
 
-    const [turno, setTurno] = useState(JUGADORES.X);
+    const [turno, setTurno] = useState(() => {
+        const turnoLocal = window.localStorage.getItem("turno")
+        return turnoLocal? JSON.parse(turnoLocal) : JUGADORES.X
+    });
 
-    const [ganador, setGanador] = useState(null);
+    const [ganador, setGanador] = useState(() => {
+        return checkGanador(tablero)
+    })
 
     const resetearJuego = () => {
         setTablero(Array(9).fill(JUGADORES.BLANK))
-        setTurno(JUGADORES.X);
+        setTurno(JUGADORES.X)
         setGanador(null)
+        borrarJuego()
     }
     
     const actualizarTablero = (index) => {
@@ -31,7 +43,9 @@ export default function App (){
         
         const newTurno = turno === JUGADORES.X ? JUGADORES.O : JUGADORES.X;
         setTurno(newTurno);
-    
+        
+        guardarJuego(newTablero, newTurno)
+
         const newGanador = checkGanador(newTablero);
         if(newGanador != null){
             if (newGanador != false) {
