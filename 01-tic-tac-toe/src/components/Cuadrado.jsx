@@ -1,3 +1,5 @@
+import "../main.css"
+
 export const Cuadrado = ({ficha, actualizarTablero, index}) => {
 
     const handleCLick = () =>{
@@ -5,8 +7,8 @@ export const Cuadrado = ({ficha, actualizarTablero, index}) => {
     }
 
     return(
-        <div onClick={handleCLick} >
-            <p>{ficha}</p>
+        <div onClick={handleCLick} className="square" >
+            {ficha}
         </div>
     )
 

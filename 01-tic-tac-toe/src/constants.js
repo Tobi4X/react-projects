@@ -1,7 +1,7 @@
 export const JUGADORES = {
     X: "x",
     O: "o",
-    BLANK: "-"
+    BLANK: null
 }
 
 export const GANADORES = [

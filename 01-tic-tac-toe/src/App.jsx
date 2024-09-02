@@ -57,8 +57,8 @@ export default function App (){
 
     return(
         <>
-        <body>    
-            <h1>Tic Tac Toe</h1>
+        <main className='board'>    
+            <h1>Ta Te Ti</h1>
             {
                 ganador == false && (
                     <Ganador
@@ -69,18 +69,19 @@ export default function App (){
                 )
             }
 
-            <section>{
-                tablero.map((_, index) => {
-                    return (
-                        <Cuadrado
-                        ficha={tablero[index]} 
-                        actualizarTablero={actualizarTablero} 
-                        index={index}
-                        >
-                        </Cuadrado>
-                    )
-                })
-            }
+            <section className="game">
+                {
+                    tablero.map((square, index) => {
+                        return (
+                            <Cuadrado
+                                ficha={tablero[index]} 
+                                index={index}
+                                actualizarTablero={actualizarTablero} 
+                            >
+                            </Cuadrado>
+                        )
+                    })
+                }
             </section>
 
             {
@@ -95,11 +96,13 @@ export default function App (){
             
             {
                 ganador == null &&
-                (
-                    <p>Es el turno de : {turno}</p>
+                (   
+                    <section className="turn">
+                        <p>Es el turno de : {turno}</p>
+                    </section>
                 )
             }
-        </body>
+        </main>
         </>
     )
 }
